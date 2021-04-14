@@ -11,7 +11,7 @@ const socketServer = (server) => {
     io.on('connection', (socket) => {
         console.log(`[+] ${socket.id}`);
 
-        registerRoomEvents(socket);
+        registerRoomEvents(io, socket);
 
         socket.on('disconnect', () => {
             console.log(`[-] ${socket.id}`);
