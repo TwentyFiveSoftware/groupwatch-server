@@ -7,6 +7,10 @@ const roomManager = new RoomManager();
 const registerRoomEvents = (io: Server, socket: Socket) => {
     let userRoom: IRoom = null;
 
+    const sendRoomUpdate = (): void => {
+        io.to(userRoom.id).emit('roomUpdate', userRoom);
+    };
+
     socket.on('join', (roomId: string | null) => {
         if (userRoom === null) {
             userRoom = roomManager.joinRoom(roomId);
@@ -20,7 +24,14 @@ const registerRoomEvents = (io: Server, socket: Socket) => {
         if (userRoom === null) return;
 
         userRoom.playlist.videos.push({ url, title: url, channel: '', duration: 25 });
-        io.to(userRoom.id).emit('roomUpdate', userRoom);
+        sendRoomUpdate();
+    });
+
+    socket.on('selectVideoIndex', (index: number) => {
+        if (userRoom === null) return;
+
+        userRoom.playlist.currentVideoIndex = Math.min(Math.max(index, 0), userRoom.playlist.videos.length - 1);
+        sendRoomUpdate();
     });
 };
 
