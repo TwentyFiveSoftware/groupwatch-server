@@ -33,6 +33,15 @@ const registerRoomEvents = (io: Server, socket: Socket) => {
         userRoom.playlist.currentVideoIndex = Math.min(Math.max(index, 0), userRoom.playlist.videos.length - 1);
         sendRoomUpdate();
     });
+
+    socket.on('setVideoPlaying', (playing: boolean, seconds?: number) => {
+        if (userRoom === null) return;
+        if (userRoom.playlist.isVideoPlaying === playing) return;
+
+        userRoom.playlist.isVideoPlaying = playing;
+        if (seconds) userRoom.playlist.currentVideoTime = seconds;
+        sendRoomUpdate();
+    });
 };
 
 export default registerRoomEvents;

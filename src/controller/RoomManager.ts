@@ -29,6 +29,8 @@ export class RoomManager {
             playlist: {
                 videos: [],
                 currentVideoIndex: 0,
+                currentVideoTime: 0,
+                isVideoPlaying: false,
             },
         };
         this.rooms.push(room);
