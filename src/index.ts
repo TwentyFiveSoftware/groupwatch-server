@@ -1,6 +1,9 @@
 import express from 'express';
 import http from 'http';
 import socketServer from './socketServer';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 

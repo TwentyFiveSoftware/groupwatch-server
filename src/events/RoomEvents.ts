@@ -1,6 +1,7 @@
 import { Server, Socket } from 'socket.io';
 import { RoomManager } from '../controller/RoomManager';
 import type { IRoom } from '../types/Room';
+import { getVideoData, getVideoIdFromUrl } from '../controller/YouTubeManager';
 
 const roomManager = new RoomManager();
 
@@ -20,10 +21,13 @@ const registerRoomEvents = (io: Server, socket: Socket) => {
         socket.emit('joinResponse', userRoom);
     });
 
-    socket.on('addVideoToPlaylist', (url: string) => {
+    socket.on('addVideoToPlaylist', async (url: string) => {
         if (userRoom === null) return;
 
-        userRoom.playlist.videos.push({ url, title: url, channel: '', duration: 25 });
+        const data = await getVideoData(getVideoIdFromUrl(url));
+        if (data === null) return;
+
+        userRoom.playlist.videos.push({ url, ...data });
         sendRoomUpdate();
     });
 
