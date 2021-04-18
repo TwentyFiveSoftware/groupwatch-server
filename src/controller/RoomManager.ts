@@ -30,7 +30,7 @@ export class RoomManager {
                 videos: [],
                 currentVideoIndex: 0,
                 currentVideoTime: 0,
-                isVideoPlaying: false,
+                isVideoPlaying: true,
             },
         };
         this.rooms.push(room);

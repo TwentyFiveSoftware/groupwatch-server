@@ -34,7 +34,14 @@ const registerRoomEvents = (io: Server, socket: Socket) => {
     socket.on('selectVideoIndex', (index: number) => {
         if (userRoom === null) return;
 
+        const lastVideoIndex = userRoom.playlist.currentVideoIndex;
         userRoom.playlist.currentVideoIndex = Math.min(Math.max(index, 0), userRoom.playlist.videos.length - 1);
+
+        if (lastVideoIndex !== userRoom.playlist.currentVideoIndex) {
+            userRoom.playlist.isVideoPlaying = true;
+            userRoom.playlist.currentVideoTime = 0;
+        }
+
         sendRoomUpdate();
     });
 
