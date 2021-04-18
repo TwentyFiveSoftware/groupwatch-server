@@ -46,6 +46,17 @@ const registerRoomEvents = (io: Server, socket: Socket) => {
         if (seconds) userRoom.playlist.currentVideoTime = seconds;
         sendRoomUpdate();
     });
+
+    socket.on('requestVideoTimeSync', () => {
+        if (userRoom === null) return;
+        io.to(userRoom.id).emit('videoTimeSync');
+    });
+
+    socket.on('videoTimeSyncResponse', (seconds: number) => {
+        if (seconds === 0) return;
+        userRoom.playlist.currentVideoTime = seconds;
+        sendRoomUpdate();
+    });
 };
 
 export default registerRoomEvents;
