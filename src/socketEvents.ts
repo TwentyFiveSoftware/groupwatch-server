@@ -7,7 +7,7 @@ import setVideoPlaying from './modules/playlist/events/setVideoPlaying';
 import requestVideoTimeSync from './modules/playlist/events/requestVideoTimeSync';
 import videoTimeSyncResponse from './modules/playlist/events/videoTimeSyncResponse';
 
-const registerSocketEvents = (io: Server, socket: Socket) => {
+const registerSocketEvents = (io: Server, socket: Socket): void => {
     const props: DefaultEventProps = { io, socket, room: null };
 
     socket.on('join', (roomId: string | null) => {

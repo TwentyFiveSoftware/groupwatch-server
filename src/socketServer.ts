@@ -1,7 +1,8 @@
 import { Server } from 'socket.io';
 import registerSocketEvents from './socketEvents';
+import * as http from 'http';
 
-const socketServer = (server) => {
+const socketServer = (server: http.Server): Server => {
     const io = new Server(server, {
         cors: {
             origin: '*',

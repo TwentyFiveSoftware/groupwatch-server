@@ -1,5 +1,5 @@
-import {google} from 'googleapis';
-import {IYouTubeVideoData} from './types/YouTubeVideoData';
+import { google } from 'googleapis';
+import { IYouTubeVideoData } from './types/YouTubeVideoData';
 import iso8601 from 'iso8601-duration';
 
 const getVideoIdFromUrl = (url: string): string | null => {
@@ -9,27 +9,24 @@ const getVideoIdFromUrl = (url: string): string | null => {
 
 interface VideoInfoResponse {
     snippet: {
-        title: string,
-        channelTitle: string
+        title: string;
+        channelTitle: string;
     };
     contentDetails: {
-        duration: string
+        duration: string;
     };
 }
 
 const getVideoData = async (id: string): Promise<IYouTubeVideoData | null> => {
     try {
-        const response = await google
-            .youtube('v3')
-            .videos
-            .list({
-                part: ['snippet', 'contentDetails'],
-                id: [id],
-                auth: process.env['YOUTUBE_DATA_API_KEY']
-            });
+        const response = await google.youtube('v3').videos.list({
+            part: ['snippet', 'contentDetails'],
+            id: [id],
+            auth: process.env['YOUTUBE_DATA_API_KEY'],
+        });
 
         if (!response?.data?.items || response?.data?.items?.length === 0) return null;
-        const {snippet, contentDetails} = response.data.items[0] as VideoInfoResponse;
+        const { snippet, contentDetails } = response.data.items[0] as VideoInfoResponse;
 
         return {
             channel: snippet.channelTitle,
@@ -42,4 +39,4 @@ const getVideoData = async (id: string): Promise<IYouTubeVideoData | null> => {
     }
 };
 
-export {getVideoIdFromUrl, getVideoData};
+export { getVideoIdFromUrl, getVideoData };

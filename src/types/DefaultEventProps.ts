@@ -4,5 +4,5 @@ import type { IRoom } from '../modules/room/types/Room';
 export interface DefaultEventProps {
     io: Server;
     socket: Socket;
-    room: IRoom;
+    room: IRoom | null;
 }
