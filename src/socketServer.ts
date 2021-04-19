@@ -1,5 +1,5 @@
 import { Server } from 'socket.io';
-import registerRoomEvents from './events/RoomEvents';
+import registerSocketEvents from './socketEvents';
 
 const socketServer = (server) => {
     const io = new Server(server, {
@@ -11,11 +11,9 @@ const socketServer = (server) => {
     io.on('connection', (socket) => {
         console.log(`[+] ${socket.id}`);
 
-        registerRoomEvents(io, socket);
+        registerSocketEvents(io, socket);
 
-        socket.on('disconnect', () => {
-            console.log(`[-] ${socket.id}`);
-        });
+        socket.on('disconnect', () => console.log(`[-] ${socket.id}`));
     });
 
     return io;
