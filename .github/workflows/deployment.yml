@@ -20,7 +20,7 @@ jobs:
           envkey_YOUTUBE_DATA_API_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}
 
       - name: Build
-        run: npm build
+        run: npm run build
 
       - name: Deploy to App Engine
         uses: google-github-actions/deploy-appengine@main
