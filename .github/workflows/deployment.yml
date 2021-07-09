@@ -1,0 +1,28 @@
+name: Deployment
+
+on:
+  push:
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    name: Deployment
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install dependencies
+        run: npm install
+
+      - name: make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_YOUTUBE_DATA_API_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}
+
+      - name: deploy to App Engine
+        uses: google-github-actions/deploy-appengine@main
+        with:
+          deliverables: app.yaml
+          project_id: ${{ secrets.GCP_PROJECT }}
+          credentials: ${{ secrets.GCP_SA_KEY }}
+          working_directory: dist
