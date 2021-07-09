@@ -2,8 +2,12 @@ runtime: nodejs14
 
 instance_class: F1
 
+skip_files:
+  - ^(?!dist)
+
 handlers:
-  - url: /.*
+  - url: /(.*)
     secure: always
     redirect_http_response_code: 301
     script: auto
+    static_files: dist/\1

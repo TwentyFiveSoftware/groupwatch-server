@@ -28,4 +28,3 @@ jobs:
           deliverables: app.yaml
           project_id: ${{ secrets.GCP_PROJECT }}
           credentials: ${{ secrets.GCP_SA_KEY }}
-          working_directory: dist
