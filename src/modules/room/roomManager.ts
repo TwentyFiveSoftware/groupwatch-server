@@ -14,7 +14,7 @@ const generateRoomId = (): string => {
     return id;
 };
 
-const getRoom = (roomId: string | null): IRoom | null => rooms.find((room) => room.id === roomId) ?? null;
+const getRoom = (roomId: string | null): IRoom | null => rooms.find(room => room.id === roomId) ?? null;
 
 const createRoom = (): IRoom => {
     const room: IRoom = {
