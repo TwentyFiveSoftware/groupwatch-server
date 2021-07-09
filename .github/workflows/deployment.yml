@@ -25,6 +25,7 @@ jobs:
       - name: Deploy to App Engine
         uses: google-github-actions/deploy-appengine@main
         with:
-          deliverables: app.yaml
+          working-directory: ./dist
+          deliverables: ../app.yaml
           project_id: ${{ secrets.GCP_PROJECT }}
           credentials: ${{ secrets.GCP_SA_KEY }}
