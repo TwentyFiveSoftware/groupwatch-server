@@ -2,8 +2,6 @@ runtime: nodejs14
 
 instance_class: F1
 
-env: flex
-
 manual_scaling:
   instances: 1
 
