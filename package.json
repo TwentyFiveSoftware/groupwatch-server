@@ -3,8 +3,9 @@
     "version": "1.0.0",
     "main": "src/index.js",
     "scripts": {
-        "start": "nodemon",
-        "build": "tsc"
+        "start": "node dist/index.js",
+        "postinstall": "tsc",
+        "dev": "nodemon"
     },
     "devDependencies": {
         "@types/express": "^4.17.13",

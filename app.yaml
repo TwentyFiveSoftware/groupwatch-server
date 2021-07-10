@@ -1,8 +1,0 @@
-runtime: nodejs14
-
-instance_class: F1
-
-entrypoint: node dist/index.js
-
-network:
-  session_affinity: true
